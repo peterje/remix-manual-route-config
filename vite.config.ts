@@ -7,5 +7,15 @@ import tsconfigPaths from "vite-tsconfig-paths";
 installGlobals();
 
 export default defineConfig({
-  plugins: [remix({ presets: [vercelPreset()] }), tsconfigPaths()],
+  plugins: [
+    remix({
+      routes(defineRoutes) {
+        return defineRoutes((route) => {
+          route("/", "routes/_index.tsx");
+          route("/edge", "routes/edge.tsx");
+        })
+      },
+      presets: [vercelPreset()]
+    }
+    ), tsconfigPaths()],
 });
